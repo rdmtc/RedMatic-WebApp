@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "description": "RedMatic based Homematic UI",
   "author": "Sebastian Raff <hobbyquaker@gmail.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": "hobbyquaker/RedMatic-WebApp",
   "scripts": {
     "start": "polymer serve",
