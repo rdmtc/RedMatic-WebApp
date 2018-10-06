@@ -36,7 +36,7 @@ class RwaItemHmchannelHeatingClimatecontrolTransceiver extends RwaItemHmchannel 
                 
                 #values {
                     padding-top: 8px;
-                    width: calc(100% - 80px);
+                    width: calc(100% - 60px);
                     text-align: right;
                 }
             </style>
