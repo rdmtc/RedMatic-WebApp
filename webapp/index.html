@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="Polymer Starter Kit">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>RedMatic WebApp</title>
+    <meta name="description" content="RedMatic based Homematic UI">
+
+    <!--
+      The `<base>` tag below is present to support two advanced deployment options:
+      1) Differential serving. 2) Serving from a non-root path.
+
+      Instead of manually editing the `<base>` tag yourself, you should generally either:
+      a) Add a `basePath` property to the build configuration in your `polymer.json`.
+      b) Use the `--base-path` command-line option for `polymer build`.
+
+      Note: If you intend to serve from a non-root path, see [polymer-root-path] below.
+    -->
+    <base href="/addons/red/app/">
+
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+
+    <!-- See https://goo.gl/OOhYW5 -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- See https://goo.gl/qRE0vM -->
+    <meta name="theme-color" content="#3f51b5">
+
+    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="RedMatic-WebApp">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="RedMatic WebApp">
+
+    <!-- Homescreen icons -->
+    <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
+
+    <!-- Tile icon for Windows 8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#3f51b5">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <script src="socket.io/socket.io.js"></script>
+
+    <script>
+        window.RwaBackend = {io};
+        window.RwaGlobals = {rootPath: '/addons/red/app/'};
+    </script>
+
+    <script src="node_modules/web-animations-js/web-animations-next-lite.min.js"></script>
+    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="src/rwa-app.js"></script>
+
+    <link rel="stylesheet" href="theme.css">
+  </head>
+
+  <body>
+    <rwa-app></rwa-app>
+  </body>
+
+</html>

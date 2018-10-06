@@ -1,0 +1,40 @@
+{
+  "name": "redmatic-webapp",
+  "version": "0.1.0",
+  "description": "RedMatic based Homematic UI",
+  "main": "none",
+  "scripts": {
+    "build": "rm -r www ; cd webapp; polymer build && mv build/default ../www ; cd .."
+  },
+  "author": "Sebastian Raff <hobbyquaker@gmail.com>",
+  "license": "Apache-2.0",
+  "node-red": {
+    "nodes": {
+      "redmatic-webapp": "nodes/redmatic-webapp.js"
+    }
+  },
+  "dependencies": {
+    "serve-static": "^1.13.2",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "xo": "^0.23.0"
+  },
+  "xo": {
+    "space": 4,
+    "globals": [
+      "window",
+      "document",
+      "location",
+      "customElements",
+      "RwaGlobals",
+      "RwaBackend"
+    ],
+    "rules": {
+      "import/extensions": 0,
+      "import/no-unassigned-import": 0,
+      "no-unused-vars": 0
+    }
+  }
+}
