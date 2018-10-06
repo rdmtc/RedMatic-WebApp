@@ -363,11 +363,9 @@ class RwaApp extends PolymerElement {
             });
             this.variables = variables;
 
-
             const rooms = [];
             const availRooms = data.rooms.map(v => v.name);
             const knownRooms = this.config.rooms.map(v => v.name);
-
             this.config.rooms.forEach(room => {
                 if (availRooms.includes(room.name)) {
                     rooms.push(Object.assign(data.rooms[availRooms.indexOf(room.name)], room));
@@ -378,10 +376,23 @@ class RwaApp extends PolymerElement {
                     rooms.push(data.rooms[availRooms.indexOf(room)]);
                 }
             });
-
             this.rooms = rooms;
 
-            this.functions = data.functions;
+            const functions = [];
+            const availFunctions = data.functions.map(v => v.name);
+            const knownFunctions = this.config.functions.map(v => v.name);
+            this.config.functions.forEach(func => {
+                if (availFunctions.includes(func.name)) {
+                    functions.push(Object.assign(data.functions[availFunctions.indexOf(func.name)], func));
+                }
+            });
+            availFunctions.forEach(func => {
+                if (!knownFunctions.includes(func)) {
+                    functions.push(data.functions[availFunctions.indexOf(func)]);
+                }
+            });
+            this.functions = functions;
+
             RwaGlobals.hm = {
                 deviceDescriptions: data.deviceDescriptions,
                 paramsetDescriptions: data.paramsetDescriptions,

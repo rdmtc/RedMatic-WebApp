@@ -13,7 +13,8 @@
             showSysvar: {value: false},
             showProgram: {value: true},
             showSystem: {value: false},
-            rooms: {value: []}
+            rooms: {value: []},
+            functions: {value: []}
         },
         inputs: 0,
         outputs: 0,
@@ -61,33 +62,73 @@
                 }
             });
 
+            $('ol.functions').editableList({
+                sortable: true,
+                addButton: false,
+                removeable: false,
+                addItem: (row, index, func) => {
+                    const $row = $(row);
+                    $row.html('<input class="enabled" type="checkbox"' + (func.hidden ? '' : ' checked') + '>');
+                    $row.append('<span class="name">' + func.name + '</span>');
+                    $row.append('<input class="icon" value="' + (func.icon || '') + '">');
+                    $row.append('<i style="float: right; padding-top: 2px; padding-right: 4px" class="fa ' + (func.icon || '') + '"></i>');
+                    const $preview = $row.find('i.fa');
+                    const $input = $row.find('input.icon');
+                    $input.autocomplete({
+                        close: function ()  {
+                            $preview[0].classList = 'fa ' + $(this).val();
+                        },
+                        source: faIcons
+                    }).on('change', function () {
+                        $preview[0].classList = 'fa ' + $(this).val();
+                    });
+
+                }
+            });
+
             function loadConfig() {
                 let data;
                 this.rooms = this.rooms || [];
+                this.functions = this.functions || [];
                 const nodeId = $nodeInputCcuConfig.val();
-                const url = 'ccu?type=rooms&config=' + nodeId;
+                const url = 'ccu?config=' + nodeId;
                 $.getJSON(url, d => {
+                    console.log(d);
                     data = d;
-                    console.log('data.rooms', data.rooms);
-                    console.log('this.rooms', this.rooms);
                     const rooms = [];
                     const knownRooms = [];
                     this.rooms.forEach(room => {
                         if (data.rooms.includes(room.name)) {
-                            console.log('known', room)
                             rooms.push(room);
                             knownRooms.push(room.name);
                         }
                     });
                     data.rooms.forEach(room => {
                         if (!knownRooms.includes(room)) {
-                            console.log('unknown', room);
                             rooms.push({
                                 name: room
                             });
                         }
                     });
                     $('ol.rooms').editableList('addItems', rooms);
+
+                    const functions = [];
+                    const knownFunctions = [];
+                    this.functions.forEach(func => {
+                        if (data.functions.includes(func.name)) {
+                            functions.push(func);
+                            knownFunctions.push(func.name);
+                        }
+                    });
+                    data.functions.forEach(func => {
+                        if (!knownFunctions.includes(func)) {
+                            functions.push({
+                                name: func
+                            });
+                        }
+                    });
+                    $('ol.functions').editableList('addItems', functions);
+
                 });
 
             }
@@ -120,6 +161,16 @@
                 });
             });
             this.rooms = rooms;
+
+            const functions = [];
+            $('ol.functions').editableList('items').each(function (item) {
+                functions.push({
+                    name: $(this).find('.name').html(),
+                    hidden: !$(this).find('.enabled').is(':checked'),
+                    icon: $(this).find('.icon').val()
+                });
+            });
+            this.functions = functions;
 
         }
     });
