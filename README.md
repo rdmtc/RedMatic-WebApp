@@ -1,5 +1,8 @@
 # RedMatic WebApp
 
+[![NPM version](https://badge.fury.io/js/redmatic-webapp.svg)](http://badge.fury.io/js/redmatic-webapp)
+
+
 > RedMatic based Homematic UI
 
 Diese auf RedMatic aufsetzende WebApp ist vergleichbar mit _WebMatic_ oder _Yahui_ und stellt ohne die Notwendigkeit
