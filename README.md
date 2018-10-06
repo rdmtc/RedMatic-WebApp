@@ -17,7 +17,11 @@ Software zu betrachten.
 export PATH=/usr/local/addons/redmatic/bin:$PATH
 cd /usr/local/addons/redmatic/var
 npm install --save --no-package-lock --global-style --save-prefix="~" --production redmatic-webapp
+/etc/config/rc.d/redmatic restart
 ```
+
+Den Knoten _RedMatic WebApp_ zu einem Flow hinzufügen, deployen. Die URL unter der die WebApp dann erreichbar ist ist
+in der Konfiguration des WebApp Nodes verlinkt.
 
 
 ## Screenshots
