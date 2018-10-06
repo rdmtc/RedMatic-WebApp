@@ -8,12 +8,30 @@ etwas konfigurieren zu müssen eine Bedienoberfläche für den Browser und Mobil
 __Work in Progress__ Dieses Projekt befindet sich noch in einem frühen Entwicklungsstadium und ist als Alpha/Beta
 Software zu betrachten.
 
+## Installation
+
+``` 
+export PATH=/usr/local/addons/redmatic/bin:$PATH
+cd /usr/local/addons/redmatic/var
+npm install --save --no-package-lock --global-style --save-prefix="~" --production redmatic-webapp
+```
+
+
+## Screenshots
 
 ![](docs/screen1.png)
+
+
 ![](docs/screen2.png)
+
+
 ![](docs/screen3.png)
-![](docs/screen4.png)
-![](docs/screen5.png)
+
+
+![](docs/screen4.png)    
+
+
+![](docs/screen5.png)    
 
 
 ## License
