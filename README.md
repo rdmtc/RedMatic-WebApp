@@ -5,20 +5,13 @@
 
 > RedMatic based Homematic UI
 
-Diese auf RedMatic aufsetzende WebApp ist vergleichbar mit _WebMatic_ oder _Yahui_ und stellt ohne die Notwendigkeit
-etwas konfigurieren zu müssen eine Bedienoberfläche für den Browser und Mobilgeräte bereit.
+Diese auf [RedMatic](https://github.com/hobbyquaker/RedMatic) aufsetzende WebApp ist vergleichbar mit _WebMatic_ oder 
+_Yahui_ und stellt eine Bedienoberfläche für den Browser und Mobilgeräte bereit.
 
 __Work in Progress__ Dieses Projekt befindet sich noch in einem frühen Entwicklungsstadium und ist als Alpha/Beta
 Software zu betrachten.
 
-## Installation
-
-``` 
-export PATH=/usr/local/addons/redmatic/bin:$PATH
-cd /usr/local/addons/redmatic/var
-npm install --save --no-package-lock --global-style --save-prefix="~" --production redmatic-webapp
-/etc/config/rc.d/redmatic restart
-```
+## Dokumentation
 
 Den Knoten _RedMatic WebApp_ zu einem Flow hinzufügen, deployen. Die URL unter der die WebApp dann erreichbar ist ist
 in der Konfiguration des WebApp Nodes verlinkt.
