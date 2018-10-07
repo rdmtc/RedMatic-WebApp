@@ -15,6 +15,12 @@ class Conn extends EventEmitter {
         this.on('event', data => {
             io.emit('event', data);
         });
+        this.on('sysvar', data => {
+            io.emit('sysvar', data);
+        });
+        this.on('program', data => {
+            io.emit('program', data);
+        });
     }
 }
 

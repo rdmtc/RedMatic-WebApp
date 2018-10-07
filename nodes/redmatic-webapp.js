@@ -29,6 +29,14 @@ module.exports = function (RED) {
                 conn.emit('event', msg);
             });
 
+            this.idSysvarSubscription = this.ccu.subscribeSysvar({}, msg => {
+                conn.emit('sysvar', msg);
+            });
+
+            this.idProgramSubscription = this.ccu.subscribeProgram({}, msg => {
+                conn.emit('program', msg);
+            });
+
             conn.on('cmd', msg => {
                 switch (msg.type) {
                     case 'hm':
@@ -38,6 +46,9 @@ module.exports = function (RED) {
                                 break;
                             case 'programExecute':
                                 this.ccu.programExecute(msg.name);
+                                break;
+                            case 'setVariable':
+                                this.ccu.setVariable(msg.name, msg.value);
                                 break;
                             default:
 
@@ -133,6 +144,8 @@ module.exports = function (RED) {
 
         _destructor(done) {
             this.ccu.unsubscribe(this.idSubscription);
+            this.ccu.unsubscribeSysvar(this.idSysvarSubscription);
+            this.ccu.unsubscribeProgram(this.idProgramSubscription);
             done();
         }
     }

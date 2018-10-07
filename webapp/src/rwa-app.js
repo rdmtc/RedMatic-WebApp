@@ -249,7 +249,7 @@ class RwaApp extends PolymerElement {
                             </template>
                         </iron-pages>
                         
-                        <rwa-list nav-current="[[page]]" nav-name="sysvar" items="[[sysvars]]"></rwa-list>
+                        <rwa-list nav-current="[[page]]" nav-name="sysvar" items="[[variables]]"></rwa-list>
                         <rwa-list nav-current="[[page]]" nav-name="program" items="[[programs]]"></rwa-list>
                         
                         <rwa-view404 nav-name="view404"></rwa-view404>
@@ -306,6 +306,10 @@ class RwaApp extends PolymerElement {
                 type: Array,
                 value: []
             },
+            variables: {
+                type: Array,
+                value: []
+            },
             mainTitle: String,
             disconnectMessage: String,
             configName: {
@@ -355,7 +359,7 @@ class RwaApp extends PolymerElement {
 
             const variables = [];
             Object.keys(data.variables).forEach(sysvar => {
-                programs.push({
+                variables.push({
                     name: sysvar,
                     type: 'hmsysvar',
                     config: data.variables[sysvar]

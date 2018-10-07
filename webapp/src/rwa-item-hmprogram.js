@@ -33,6 +33,20 @@ class RwaItemHmprogram extends PolymerElement {
         console.log('programExecute', this.config);
         RwaBackend.socket.emit('cmd', {type: 'hm', method: 'programExecute', name: this.config.name});
     }
+
+    connectedCallback() {
+        super.connectedCallback();
+        RwaBackend.socket.on('program', msg => this._eventListener(msg));
+    }
+
+    disconnectedCallback() {
+        RwaBackend.socket.removeListener('program', this._eventListener);
+        super.disconnectedCallback();
+    }
+
+    _eventListener(msg) {
+        console.log('program', msg);
+    }
 }
 
 window.customElements.define('rwa-item-hmprogram', RwaItemHmprogram);
