@@ -74,7 +74,7 @@ module.exports = function (RED) {
 
                 const roomItems = {};
                 Object.keys(this.ccu.channelRooms).forEach(channel => {
-                    if (this.ccu.channelRooms[channel]) {
+                    if (this.ccu.channelRooms[channel] && channels[channel]) {
                         this.ccu.channelRooms[channel].forEach(room => {
                             roomItems[room] = roomItems[room] || [];
                             roomItems[room].push({
@@ -95,7 +95,7 @@ module.exports = function (RED) {
 
 
                 Object.keys(this.ccu.channelFunctions).forEach(channel => {
-                    if (this.ccu.channelFunctions[channel]) {
+                    if (this.ccu.channelFunctions[channel] && channels[channel]) {
                         this.ccu.channelFunctions[channel].forEach(func => {
                             functionItems[func] = functionItems[func] || [];
                             functionItems[func].push({
