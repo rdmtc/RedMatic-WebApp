@@ -140,6 +140,11 @@ module.exports = function (RED) {
                     values: this.ccu.values
                 };
             };
+
+            this.on('close', done => {
+                this._destructor(done);
+            });
+
         }
 
         _destructor(done) {
