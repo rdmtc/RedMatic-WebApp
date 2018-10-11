@@ -2,6 +2,7 @@
 
 [![NPM version](https://badge.fury.io/js/redmatic-webapp.svg)](http://badge.fury.io/js/redmatic-webapp)
 
+This package isn't meant to be installed manually, it is included in [RedMatic](https://github.com/hobbyquaker/RedMatic)
 
 > RedMatic based Homematic UI
 
