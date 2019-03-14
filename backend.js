@@ -71,7 +71,20 @@ function init(RED) {
             id = id.replace(/^\?\/?/, '').replace(/\/$/, '');
             log.info('RedMatic-WebApp getConfig "' + id +  '" from ' + address);
             cb({
-                config: config[id],
+                config: {
+                    name: config[id].name,
+                    title: config[id].title,
+                    theme: config[id].theme,
+                    replaceChannelNames: config[id].replaceChannelNames,
+                    showHome: config[id].showHome,
+                    showRooms: config[id].showRooms,
+                    showFunctions: config[id].showFunctions,
+                    showSysvar: config[id].showSysvar,
+                    showProgram: config[id].showProgram,
+                    showSystem: config[id].showSystem,
+                    rooms: config[id].rooms,
+                    functions: config[id].functions
+                },
                 data: conn.getData && conn.getData()
             });
         });
