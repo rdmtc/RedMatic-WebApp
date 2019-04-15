@@ -53,7 +53,7 @@ function init(RED) {
     const app = RED.httpNode || RED.httpAdmin;
     const redSettings = RED.settings;
 
-    const uiSettings = redSettings.ui || {};
+    const uiSettings = redSettings.redmaticWebapp || {};
     settings.path = uiSettings.path || 'app';
     settings.title = uiSettings.title || 'RedMatic WebApp';
     settings.defaultGroupHeader = uiSettings.defaultGroup || 'Default';
@@ -63,16 +63,19 @@ function init(RED) {
     io = socketio(server, {path: socketIoPath});
 
     // Replace base href and rootPath for usage without RedMatic
-    app.use((req, res, next) => {
-        if (req.path === '/app/' || req.path === '/app/index.html') {
-            fs.readFile(path.join(__dirname, 'www', 'index.html'), (err, data) => {
-                data = data.toString().replace(/\/addons\/red\/app\//g, '/' + settings.path + '/');
-                res.send(data)
-            });
-        } else {
-            next();
-        }
-    });
+    if (!fs.existsSync('/usr/local/addons/redmatic')) {
+        app.use((req, res, next) => {
+            console.log(req.path, settings.path, redSettings.httpRoot)
+            if (req.path === '/app/' || req.path === '/app/index.html') {
+                fs.readFile(path.join(__dirname, 'www', 'index.html'), (err, data) => {
+                    data = data.toString().replace(/\/addons\/red\/app\//g, fullPath + '/');
+                    res.send(data)
+                });
+            } else {
+                next();
+            }
+        });
+    }
 
     app.use(join(settings.path), serveStatic(path.join(__dirname, 'www')));
 
