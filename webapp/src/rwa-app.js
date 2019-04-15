@@ -330,7 +330,7 @@ class RwaApp extends PolymerElement {
         RwaBackend.socket.emit('getConfig', this.configName, conf => {
             console.log('getConfig', conf);
             if (!conf.config || !conf.data) {
-                this.disconnectMessage = 'Keine Konfiguration vorhanden';
+                this.disconnectMessage = 'Konfiguration ' + this.configName + ' nicht vorhanden';
                 return;
             }
             this.config = conf.config;
@@ -415,14 +415,14 @@ class RwaApp extends PolymerElement {
 
         RwaGlobals.hm = {values: {}};
 
-        this.disconnectMessage = 'Keine Verbindung zu RedMatic';
+        this.disconnectMessage = 'Keine Verbindung zu Node-RED';
         RwaBackend.socket = RwaBackend.io({path: location.pathname + 'socket.io'});
         RwaBackend.socket.on('connect', () => {
             this.getConfig();
         });
 
         RwaBackend.socket.on('disconnect', () => {
-            this.disconnectMessage = 'Keine Verbindung zu RedMatic';
+            this.disconnectMessage = 'Keine Verbindung zu Node-RED';
             this.$.disconnect.style.display = 'flex';
             // Console.log('disconnect');
         });

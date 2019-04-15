@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const {EventEmitter} = require('events');
 const socketio = require('socket.io');
@@ -60,6 +61,19 @@ function init(RED) {
     const fullPath = join(redSettings.httpNodeRoot, settings.path);
     const socketIoPath = join(fullPath, 'socket.io');
     io = socketio(server, {path: socketIoPath});
+
+    // Replace base href and rootPath for usage without RedMatic
+    app.use((req, res, next) => {
+        if (req.path === '/app/' || req.path === '/app/index.html') {
+            fs.readFile(path.join(__dirname, 'www', 'index.html'), (err, data) => {
+                data = data.toString().replace(/\/addons\/red\/app\//g, '/' + settings.path + '/');
+                res.send(data)
+            });
+        } else {
+            next();
+        }
+    });
+
     app.use(join(settings.path), serveStatic(path.join(__dirname, 'www')));
 
     log.info('RedMatic-WebApp started at ' + fullPath);
@@ -70,23 +84,29 @@ function init(RED) {
         socket.on('getConfig', (id, cb) => {
             id = id.replace(/^\?\/?/, '').replace(/\/$/, '');
             log.info('RedMatic-WebApp getConfig "' + id +  '" from ' + address);
-            cb({
-                config: {
-                    name: config[id].name,
-                    title: config[id].title,
-                    theme: config[id].theme,
-                    replaceChannelNames: config[id].replaceChannelNames,
-                    showHome: config[id].showHome,
-                    showRooms: config[id].showRooms,
-                    showFunctions: config[id].showFunctions,
-                    showSysvar: config[id].showSysvar,
-                    showProgram: config[id].showProgram,
-                    showSystem: config[id].showSystem,
-                    rooms: config[id].rooms,
-                    functions: config[id].functions
-                },
-                data: conn.getData && conn.getData()
-            });
+            if (config[id]) {
+                cb({
+                    config: {
+                        name: config[id].name,
+                        title: config[id].title,
+                        theme: config[id].theme,
+                        replaceChannelNames: config[id].replaceChannelNames,
+                        showHome: config[id].showHome,
+                        showRooms: config[id].showRooms,
+                        showFunctions: config[id].showFunctions,
+                        showSysvar: config[id].showSysvar,
+                        showProgram: config[id].showProgram,
+                        showSystem: config[id].showSystem,
+                        rooms: config[id].rooms,
+                        functions: config[id].functions
+                    },
+                    data: conn.getData && conn.getData()
+                });
+            } else {
+                log.error('RedMatic-WebApp getConfig "' + id + '" unknown');
+                cb({});
+            }
+
         });
 
         socket.on('cmd', data => {
